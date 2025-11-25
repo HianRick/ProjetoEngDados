@@ -1,0 +1,32 @@
+site_name: Documentação – Projeto Eng Dados  
+repo_url: https://github.com/HianRick/ProjetoEngDados  
+repo_name: GitHub
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+    - navigation.expand
+
+nav:
+  - Início: index.md
+  - Arquitetura do Projeto: arquitetura.md
+  - Geração de Dados:
+      - Biblioteca Faker: faker.md
+      - Tabelas Geradas: tabelas.md
+  - Notebooks:
+      - Conexão: conexao.md
+      - Vinhos – Parte 1: vinhos1.md
+      - Vinhos – Parte 2: vinhos2.md
+  - Execução Local: execucao-local.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.details
