@@ -1,0 +1,99 @@
+{
+  "name": "Pipeline_Vinhos",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "Criacao_das_tabelas",
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Repos/katleenmendes8@gmail.com/ProjetoEngDados/Vinhos 001",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "Conexao_Banco-para-Landing",
+      "depends_on": [
+        {
+          "task_key": "Criacao_das_tabelas"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Repos/katleenmendes8@gmail.com/ProjetoEngDados/Conexao",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "Landing_para_Bronze",
+      "depends_on": [
+        {
+          "task_key": "Conexao_Banco-para-Landing"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Repos/katleenmendes8@gmail.com/ProjetoEngDados/Vinhos 002",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    },
+    {
+      "task_key": "Bronze_para_Silver",
+      "depends_on": [
+        {
+          "task_key": "Landing_para_Bronze"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Repos/katleenmendes8@gmail.com/ProjetoEngDados/Vinhos 003 - Silver",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "environment_key": "Default"
+    },
+    {
+      "task_key": "Silver_para_Gold",
+      "depends_on": [
+        {
+          "task_key": "Bronze_para_Silver"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Repos/katleenmendes8@gmail.com/ProjetoEngDados/Vinhos 004 - Gold",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "environment_key": "Default"
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "environments": [
+    {
+      "environment_key": "Default",
+      "spec": {
+        "environment_version": "4"
+      }
+    }
+  ],
+  "performance_target": "PERFORMANCE_OPTIMIZED"
+}
