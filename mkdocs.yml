@@ -13,15 +13,21 @@ theme:
 
 nav:
   - Início: index.md
+  - Requisitos: requisitos.md
   - Arquitetura do Projeto: arquitetura.md
   - Geração de Dados:
       - Biblioteca Faker: faker.md
       - Tabelas Geradas: tabelas.md
-  - Notebooks:
+  - Database: database.md 
+  - Datasets: datasets.md 
+  - Notebooks: 
+      - Notebooks: notebooks.md
       - Conexão: conexao.md
       - Vinhos – Parte 1: vinhos1.md
       - Vinhos – Parte 2: vinhos2.md
-  - Execução Local: execucao-local.md
+      - Vinhos - Parte 3: vinhos3.md
+      - Vinhos - Parte 4: vinhos4.md 
+  - Jobs: jobs.md 
 
 markdown_extensions:
   - toc:
