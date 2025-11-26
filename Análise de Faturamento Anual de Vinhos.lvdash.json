@@ -1,0 +1,832 @@
+{
+  "datasets": [
+    {
+      "name": "293b15b2",
+      "displayName": "fato_vendas_concluidas",
+      "queryLines": [
+        "SELECT * FROM workspace.gold_vinhos.fato_vendas_concluidas\r\n"
+      ]
+    },
+    {
+      "name": "c056c12a",
+      "displayName": "dim_vendas_diarias",
+      "queryLines": [
+        "SELECT * FROM workspace.gold_vinhos.dim_vendas_diarias"
+      ]
+    },
+    {
+      "name": "a2a38a1a",
+      "displayName": "dim_localidade",
+      "queryLines": [
+        "SELECT * FROM workspace.gold_vinhos.dim_localidade"
+      ]
+    },
+    {
+      "name": "72e604d2",
+      "displayName": "dim_dados_vinhos",
+      "queryLines": [
+        "SELECT * FROM workspace.gold_vinhos.dim_dados_vinhos"
+      ]
+    },
+    {
+      "name": "e5e874db",
+      "displayName": "dim_cliente",
+      "queryLines": [
+        "SELECT * FROM workspace.gold_vinhos.dim_cliente"
+      ]
+    },
+    {
+      "name": "590a85e1",
+      "displayName": "GRAFICO_1",
+      "queryLines": [
+        "\r\n",
+        "SELECT \r\n",
+        "    ANO,\r\n",
+        "    TIPO_VINHO,\r\n",
+        "    SUM(VALOR_VENDIDO) AS VALOR_VENDIDO_TOTAL\r\n",
+        "FROM \r\n",
+        "    gold_vinhos.fato_vendas_concluidas\r\n",
+        "GROUP BY \r\n",
+        "    ANO, \r\n",
+        "    TIPO_VINHO\r\n",
+        "ORDER BY \r\n",
+        "    ANO DESC, \r\n",
+        "    VALOR_VENDIDO_TOTAL DESC"
+      ]
+    },
+    {
+      "name": "0e4a914f",
+      "displayName": "GRAFICO_2",
+      "queryLines": [
+        "SELECT \r\n",
+        "    SUM(QUANTIDADE_VENDIDA) AS total_vendido_2025\r\n",
+        "FROM workspace.gold_vinhos.fato_vendas_concluidas\r\n",
+        "WHERE ANO = 2025;\r\n"
+      ]
+    },
+    {
+      "name": "ed866ec1",
+      "displayName": "GRAFICO_3",
+      "queryLines": [
+        "SELECT \r\n",
+        "    SUM(VALOR_VENDIDO) AS total_vendido_2025\r\n",
+        "FROM workspace.gold_vinhos.fato_vendas_concluidas\r\n",
+        "WHERE ANO = 2025 AND TIPO_VINHO = 'Rosé';"
+      ]
+    },
+    {
+      "name": "e3650732",
+      "displayName": "GRAFICO_4",
+      "queryLines": [
+        "SELECT \r\n",
+        "    SUM(VALOR_VENDIDO) AS total_vendido_2025\r\n",
+        "FROM workspace.gold_vinhos.fato_vendas_concluidas\r\n",
+        "WHERE ANO = 2025 AND TIPO_VINHO = 'Espumante';"
+      ]
+    },
+    {
+      "name": "2dab71a7",
+      "displayName": "GRAFICO_5",
+      "queryLines": [
+        "SELECT \r\n",
+        "    SUM(QUANTIDADE_VENDIDA) AS total_vendido_2025\r\n",
+        "FROM workspace.gold_vinhos.fato_vendas_concluidas\r\n",
+        "WHERE PAIS = 'França' AND ANO = 2025;"
+      ]
+    },
+    {
+      "name": "0e7f7afc",
+      "displayName": "GRAFICO_6",
+      "queryLines": [
+        "SELECT\r\n",
+        "    TIPO_VINHO,\r\n",
+        "    SUM(VALOR_VENDIDO) AS total_vendas,\r\n",
+        "    SUM(VALOR_VENDIDO) * 100.0 / SUM(SUM(VALOR_VENDIDO)) OVER() AS percentual_vendas\r\n",
+        "FROM workspace.gold_vinhos.fato_vendas_concluidas\r\n",
+        "WHERE ano = 2025\r\n",
+        "GROUP BY TIPO_VINHO\r\n",
+        "ORDER BY total_vendas DESC;\r\n"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "982f5159",
+      "displayName": "Análise de Faturamento Anual de Vinhos",
+      "layout": [
+        {
+          "widget": {
+            "name": "0663b9d4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "590a85e1",
+                  "fields": [
+                    {
+                      "name": "TIPO_VINHO",
+                      "expression": "`TIPO_VINHO`"
+                    },
+                    {
+                      "name": "ANO",
+                      "expression": "`ANO`"
+                    },
+                    {
+                      "name": "VALOR_VENDIDO_TOTAL",
+                      "expression": "`VALOR_VENDIDO_TOTAL`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "ANO",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "VALOR_VENDIDO_TOTAL",
+                  "displayName": "Valor vendas",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "TIPO_VINHO",
+                  "displayName": "Tipo de vinho",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Branco",
+                        "color": "#D9DFE8"
+                      },
+                      {
+                        "value": "Espumante",
+                        "color": "#ECB5B5"
+                      },
+                      {
+                        "value": "Rosé",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 8
+                        }
+                      },
+                      {
+                        "value": "Tinto",
+                        "color": "#AF77E5"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "VENDAS ANUAIS DE VINHOS POR CATEGORIA",
+                "showDescription": false
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 3,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "0b58c6f2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0e4a914f",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Qtde de Vendas - 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "39b4daa6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ed866ec1",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Fat. do Vinho Rosé – 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "286e7941",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e3650732",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Fat. do Espumante– 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "fb271fb3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2dab71a7",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "França>Consumidor - 2025 (unid.)"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "68621f66",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0e7f7afc",
+                  "fields": [
+                    {
+                      "name": "sum(percentual_vendas)",
+                      "expression": "SUM(`percentual_vendas`)"
+                    },
+                    {
+                      "name": "TIPO_VINHO",
+                      "expression": "`TIPO_VINHO`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(percentual_vendas)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Percentual de Vendas"
+                },
+                "color": {
+                  "fieldName": "TIPO_VINHO",
+                  "displayName": "Tipo de vinho",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Tinto",
+                        "color": "#AF77E5"
+                      },
+                      {
+                        "value": "Rosé",
+                        "color": "#FCA4A1"
+                      },
+                      {
+                        "value": "Branco",
+                        "color": "#D9DFE8"
+                      },
+                      {
+                        "value": "Espumante",
+                        "color": "#ECB5B5"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "PERCENTUAL DE VENDAS POR TIPO DE VINHO EM 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 3,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "1f07e127",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 24px;\">Análise de Faturamento Anual de Vinhos</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 4,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "d9ef8930",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "5fe44d81",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    },
+    {
+      "name": "29b7e373",
+      "displayName": "Análise de Faturamento Anual de Vinhos 1",
+      "layout": [
+        {
+          "widget": {
+            "name": "bddbb34b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "590a85e1",
+                  "fields": [
+                    {
+                      "name": "TIPO_VINHO",
+                      "expression": "`TIPO_VINHO`"
+                    },
+                    {
+                      "name": "ANO",
+                      "expression": "`ANO`"
+                    },
+                    {
+                      "name": "VALOR_VENDIDO_TOTAL",
+                      "expression": "`VALOR_VENDIDO_TOTAL`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "ANO",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "VALOR_VENDIDO_TOTAL",
+                  "displayName": "Valor vendas",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "TIPO_VINHO",
+                  "displayName": "Tipo de vinho",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Branco",
+                        "color": "#D9DFE8"
+                      },
+                      {
+                        "value": "Espumante",
+                        "color": "#ECB5B5"
+                      },
+                      {
+                        "value": "Rosé",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 8
+                        }
+                      },
+                      {
+                        "value": "Tinto",
+                        "color": "#AF77E5"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "VENDAS ANUAIS DE VINHOS POR CATEGORIA",
+                "showDescription": false
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 3,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "d97b1297",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0e4a914f",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Qtde de Vendas - 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "145808b6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ed866ec1",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Fat. do Vinho Rosé – 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "6ada1fc9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e3650732",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Fat. do Espumante– 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "8569522d",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2dab71a7",
+                  "fields": [
+                    {
+                      "name": "total_vendido_2025",
+                      "expression": "`total_vendido_2025`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "total_vendido_2025"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "França>Consumidor - 2025 (unid.)"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "a9ebbd99",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0e7f7afc",
+                  "fields": [
+                    {
+                      "name": "sum(percentual_vendas)",
+                      "expression": "SUM(`percentual_vendas`)"
+                    },
+                    {
+                      "name": "TIPO_VINHO",
+                      "expression": "`TIPO_VINHO`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(percentual_vendas)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Percentual de vendas"
+                },
+                "color": {
+                  "fieldName": "TIPO_VINHO",
+                  "displayName": "Tipo de vinho",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Tinto",
+                        "color": "#AF77E5"
+                      },
+                      {
+                        "value": "Rosé",
+                        "color": "#FCA4A1"
+                      },
+                      {
+                        "value": "Branco",
+                        "color": "#D9DFE8"
+                      },
+                      {
+                        "value": "Espumante",
+                        "color": "#ECB5B5"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "PERCENTUAL DE VENDAS POR TIPO DE VINHO EM 2025"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 3,
+            "width": 2,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "0ce58a2a",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 24px;\">Análise de Faturamento Anual de Vinhos</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 4,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
