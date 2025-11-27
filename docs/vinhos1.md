@@ -1,17 +1,19 @@
 # Notebook – Vinhos 001
 
-Este notebook executa as primeiras análises sobre as tabelas, tais como:
+```sql
 
-- Contagem de registros
-- Quantidade total vendida
-- Análises simples por tipo de vinho
+CREATE SCHEMA IF NOT EXISTS workspace.landing
+COMMENT 'Schema/Database para dados bronze (delta)';
 
-Exemplo de operação:
+CREATE VOLUME IF NOT EXISTS workspace.landing.dados_vinhos
+COMMENT 'Volume para dados brutos criados no schema/database landing';
 
-```python
-df.groupby("vinho")["quantidade"].sum()
+CREATE SCHEMA IF NOT EXISTS workspace.bronze_vinhos
+COMMENT 'Schema/Database para dados bronze (delta)';
+
+CREATE SCHEMA IF NOT EXISTS workspace.silver_vinhos
+COMMENT 'Schema/Database para dados silver (delta)';
+
+CREATE SCHEMA IF NOT EXISTS workspace.gold_vinhos
+COMMENT 'Schema/Database para dados gold (delta) - modelagem dimensional';
 ```
-
-Objetivo:
-
-> Familiarizar-se com operações analíticas básicas de dados tabulares.
