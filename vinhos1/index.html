@@ -240,6 +240,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Requisitos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../arquitetura/" class="md-nav__link">
         
   
@@ -272,10 +294,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -288,8 +310,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Geração de Dados
           </label>
@@ -352,6 +374,50 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Datasets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -365,10 +431,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -381,12 +447,35 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Notebooks
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Notebooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -467,6 +556,52 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vinhos3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vinhos - Parte 3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vinhos4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vinhos - Parte 4
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -481,12 +616,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../execucao-local/" class="md-nav__link">
+      <a href="../jobs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Execução Local
+    Jobs
     
   </span>
   
@@ -534,19 +669,21 @@
 
 
 <h1 id="notebook-vinhos-001">Notebook – Vinhos 001<a class="headerlink" href="#notebook-vinhos-001" title="Permanent link">&para;</a></h1>
-<p>Este notebook executa as primeiras análises sobre as tabelas, tais como:</p>
-<ul>
-<li>Contagem de registros</li>
-<li>Quantidade total vendida</li>
-<li>Análises simples por tipo de vinho</li>
-</ul>
-<p>Exemplo de operação:</p>
-<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;vinho&quot;</span><span class="p">)[</span><span class="s2">&quot;quantidade&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="n">landing</span>
+<span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Schema/Database para dados bronze (delta)&#39;</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="n">VOLUME</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="n">landing</span><span class="p">.</span><span class="n">dados_vinhos</span>
+<span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Volume para dados brutos criados no schema/database landing&#39;</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="n">bronze_vinhos</span>
+<span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Schema/Database para dados bronze (delta)&#39;</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="n">silver_vinhos</span>
+<span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Schema/Database para dados silver (delta)&#39;</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="n">gold_vinhos</span>
+<span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;Schema/Database para dados gold (delta) - modelagem dimensional&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>Objetivo:</p>
-<blockquote>
-<p>Familiarizar-se com operações analíticas básicas de dados tabulares.</p>
-</blockquote>
 
 
 
