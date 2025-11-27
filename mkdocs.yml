@@ -20,6 +20,7 @@ nav:
       - Tabelas Geradas: tabelas.md
   - Database: database.md 
   - Datasets: datasets.md 
+  - Dashboards: dashboard.md
   - Notebooks: 
       - Notebooks: notebooks.md
       - Conexão: conexao.md
